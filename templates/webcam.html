@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Webcam Sign Language Detection</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f0f8ff;
+        text-align: center;
+        padding: 20px;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+      }
+
+      video {
+        width: 100%;
+        max-width: 600px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+
+      .result {
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Sign Language Detection Using Webcam</h1>
+    <img
+      src="{{ url_for('video_feed', model='model1') }}"
+      id="webcam"
+      alt="Webcam Feed"
+    />
+
+    <div class="result">
+      <p>Detecting sign language</p>
+    </div>
+  </body>
+</html>

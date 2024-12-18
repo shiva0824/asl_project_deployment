@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Language Detection</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom right, #f0f8ff, #e6f7ff);
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      h1 {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .main-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .upload-section,
+      .results-section {
+        flex: 1;
+        min-width: 300px;
+        max-width: 600px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #444;
+      }
+
+      input[type="file"],
+      select {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      button {
+        background-color: #077b3d;
+        color: #fff;
+        border: none;
+        padding: 12px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        width: 100%;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background-color: #077b3d;
+      }
+
+      img,
+      video {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        object-fit: contain;
+      }
+
+      .results-section {
+        text-align: center;
+      }
+
+      .placeholder {
+        text-align: center;
+        color: #888;
+        font-style: italic;
+      }
+
+      /* Style for the webcam link */
+      .webcam-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        font-size: 16px;
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      .webcam-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>American Sign Language Detection using YOLO11</h1>
+    <div class="main-container">
+      <!-- Upload Section -->
+      <div class="upload-section">
+        <h2>Upload Image or Video</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="model">Choose a Model:</label>
+            <select name="model" id="model" required>
+              <option value="model1">yolo11</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="file">Upload an Image or Video:</label>
+            <input type="file" name="file" id="file" required />
+          </div>
+          <button type="submit">Upload</button>
+        </form>
+      </div>
+
+      <!-- Results Section -->
+      <div class="results-section">
+        <h2>Detection Results</h2>
+        {% if image_path %}
+        <h3>Detected Image:</h3>
+        <img
+          src="{{ url_for('static', filename=image_path) }}"
+          alt="Detected Image"
+        />
+        {% elif video_path %}
+        <h3>Detected Video:</h3>
+        <video controls>
+          <source
+            src="{{ url_for('static', filename=video_path) }}"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+        {% else %}
+        <p class="placeholder">
+          No results to display. Upload an image or video to see the detection
+          results here.
+        </p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Link to the webcam page -->
+    <a href="webcam" class="webcam-link">Capture from Webcam</a>
+  </body>
+</html>
